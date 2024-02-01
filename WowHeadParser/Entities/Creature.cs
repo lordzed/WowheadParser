@@ -1,4 +1,4 @@
-﻿/*
+/*
  * * Created by Traesh for AshamaneProject (https://github.com/AshamaneProject)
  */
 using Newtonsoft.Json;
@@ -621,7 +621,7 @@ namespace WowHeadParser.Entities
                 m_creatureReferenceLootBuilder = new SqlBuilder("reference_loot_template", "entry", SqlQueryType.DeleteInsert);
                 m_creatureReferenceLootBuilder.SetFieldsNames("Item", "Reference", "Chance", "QuestRequired", "LootMode", "GroupId", "MinCount", "MaxCount", "Comment");
 
-                returnSql += "UPDATE creature_template SET lootid = " + templateEntry + " WHERE entry = " + templateEntry + " AND lootid = 0;\n";
+                returnSql += "UPDATE creature_template_difficulty SET lootid = " + templateEntry + " WHERE entry = " + templateEntry + " AND lootid = 0;\n";
                 foreach (CreatureLootParsing creatureLootData in m_creatureLootDatas)
                 {
                     List<int> entryList = new List<int>();
@@ -714,7 +714,7 @@ namespace WowHeadParser.Entities
                 m_creatureSkinningBuilder = new SqlBuilder("skinning_loot_template", "entry", SqlQueryType.DeleteInsert);
                 m_creatureSkinningBuilder.SetFieldsNames("Item", "Reference", "Chance", "QuestRequired", "LootMode", "GroupId", "MinCount", "MaxCount", "Comment");
 
-                returnSql += "UPDATE creature_template SET skinloot = " + m_creatureTemplateData.id + " WHERE entry = " + m_creatureTemplateData.id + " AND skinloot = 0;\n";
+                returnSql += "UPDATE creature_template_difficulty SET skinlootid = " + m_creatureTemplateData.id + " WHERE entry = " + m_creatureTemplateData.id + " AND skinlootid = 0;\n";
                 foreach (CreatureLootParsing creatureSkinningData in m_creatureSkinningDatas)
                 {
                     m_creatureSkinningBuilder.AppendFieldsValue(m_creatureTemplateData.id, // Entry
@@ -749,7 +749,7 @@ namespace WowHeadParser.Entities
 
             if (IsCheckboxChecked("quest starter") && m_creatureQuestStarterDatas != null)
             {
-                m_creatureQuestStarterBuilder = new SqlBuilder("creature_queststarter", "entry", SqlQueryType.DeleteInsert);
+                m_creatureQuestStarterBuilder = new SqlBuilder("creature_queststarter", "id", SqlQueryType.DeleteInsert);
                 m_creatureQuestStarterBuilder.SetFieldsNames("quest");
 
                 foreach (QuestStarterEnderParsing creatureQuestStarterData in m_creatureQuestStarterDatas)
@@ -760,7 +760,7 @@ namespace WowHeadParser.Entities
 
             if (IsCheckboxChecked("quest ender") && m_creatureQuestEnderDatas != null)
             {
-                m_creatureQuestEnderBuilder = new SqlBuilder("creature_questender", "entry", SqlQueryType.DeleteInsert);
+                m_creatureQuestEnderBuilder = new SqlBuilder("creature_questender", "id", SqlQueryType.DeleteInsert);
                 m_creatureQuestEnderBuilder.SetFieldsNames("quest");
 
                 foreach (QuestStarterEnderParsing creatureQuestEnderData in m_creatureQuestEnderDatas)
