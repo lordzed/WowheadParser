@@ -495,8 +495,8 @@ namespace WowHeadParser.Entities
                     break;
                     case "8.0.1.28153":
                     {
-                        m_creatureTemplateBuilder = new SqlBuilder("creature_template", "entry");
-                        m_creatureTemplateBuilder.SetFieldsNames("minlevel", "maxlevel", "name", "subname", "rank", "type", "family");
+                        m_creatureTemplateBuilder = new SqlBuilder("creature_template_difficulty", "entry");
+                        m_creatureTemplateBuilder.SetFieldsNames("minlevel", "maxlevel");
 
                         m_creatureTemplateBuilder.AppendFieldsValue(m_creatureTemplateData.id, m_creatureTemplateData.minlevel, m_creatureTemplateData.maxlevel, m_creatureTemplateData.name, m_subname ?? "", m_isBoss ? "3" : "0", m_creatureTemplateData.type, m_creatureTemplateData.family);
                         returnSql += m_creatureTemplateBuilder.ToString() + "\n";
@@ -511,19 +511,18 @@ namespace WowHeadParser.Entities
                     break;
                     default: // 9.2.0.42560
                     {
-                        m_creatureTemplateBuilder = new SqlBuilder("creature_template", "entry");
-                        m_creatureTemplateBuilder.SetFieldsNames("minlevel", "maxlevel", "name", "subname", "rank", "type", "family");
+                        m_creatureTemplateBuilder = new SqlBuilder("creature_template_difficulty", "entry", SqlQueryType.Update);
+                        m_creatureTemplateBuilder.SetFieldsNames("LevelScalingDeltaMin", "LevelScalingDeltaMax");
 
-                        m_creatureTemplateBuilder.AppendFieldsValue(m_creatureTemplateData.id, m_creatureTemplateData.minlevel, m_creatureTemplateData.maxlevel, m_creatureTemplateData.name, m_subname ?? "", m_isBoss ? "3" : "0", m_creatureTemplateData.type, m_creatureTemplateData.family);
-                        returnSql += m_creatureTemplateBuilder.ToString() + "\n";
+                        m_creatureTemplateBuilder.AppendFieldsValue(m_creatureTemplateData.id, m_creatureTemplateData.minlevel, m_creatureTemplateData.maxlevel);
+                        returnSql += "UPDATE creature_template_difficulty SET LevelScalingDeltaMin = " + m_creatureTemplateData.minlevel + ", LevelScalingDeltaMax = " + m_creatureTemplateData.maxlevel + " WHERE entry = " + m_creatureTemplateData.id + ";\n";
 
-                        // models are now saved in creature_template_model as of BFA
-                        m_creatureTemplateModelBuilder = new SqlBuilder("creature_template_model", "CreatureID");
-                        m_creatureTemplateModelBuilder.SetFieldsNames("Idx", "CreatureDisplayID", "Probability");
 
-                        m_creatureTemplateModelBuilder.AppendFieldsValue(m_creatureTemplateData.id, "0", m_modelid, "1");
-                        returnSql += m_creatureTemplateModelBuilder.ToString() + "\n";
-                    }
+
+                            // returnSql += m_creatureTemplateBuilder.ToString() + "\n";
+
+
+                        }
                     break;
                 }
             }
