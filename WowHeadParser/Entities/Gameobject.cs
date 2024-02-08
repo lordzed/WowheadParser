@@ -1,6 +1,3 @@
-﻿/*
- * * Created by Traesh for AshamaneProject (https://github.com/AshamaneProject)
- */
 using Newtonsoft.Json;
 using Sql;
 using System;
@@ -238,7 +235,7 @@ namespace WowHeadParser.Entities
                 m_gameobjectLootBuilder = new SqlBuilder("gameobject_loot_template", "entry", SqlQueryType.DeleteInsert);
                 m_gameobjectLootBuilder.SetFieldsNames("Item", "Reference", "Chance", "QuestRequired", "LootMode", "GroupId", "MinCount", "MaxCount", "Comment");
 
-                returnSql += "UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n";
+                returnSql += "";//"UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n";
                 foreach (GameObjectLootParsing gameobjectLootData in m_gameobjectLootDatas)
                 {
                     GameObjectLootCurrencyParsing currentLootCurrencyData = null;
@@ -277,7 +274,7 @@ namespace WowHeadParser.Entities
                 m_gameobjectHerbalismBuilder = new SqlBuilder("gameobject_loot_template", "entry", SqlQueryType.InsertIgnore);
                 m_gameobjectHerbalismBuilder.SetFieldsNames("Item", "Reference", "Chance", "QuestRequired", "LootMode", "GroupId", "MinCount", "MaxCount", "Comment");
 
-                returnSql += "UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n";
+                returnSql += "UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n"; //"UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n";
                 foreach (GameObjectLootParsing gameobjectHerbalismData in m_gameobjectHerbalismDatas)
                     m_gameobjectHerbalismBuilder.AppendFieldsValue(m_data.id, // Entry
                                                                    gameobjectHerbalismData.id, // Item
@@ -298,7 +295,7 @@ namespace WowHeadParser.Entities
                 m_gameobjectMiningBuilder = new SqlBuilder("gameobject_loot_template", "entry", SqlQueryType.InsertIgnore);
                 m_gameobjectMiningBuilder.SetFieldsNames("Item", "Reference", "Chance", "QuestRequired", "LootMode", "GroupId", "MinCount", "MaxCount", "Comment");
 
-                returnSql += "UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n";
+                returnSql += "UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n"; //"UPDATE gameobject_template SET data1 = " + m_data.id + " WHERE entry = " + m_data.id + " AND type IN (3, 50);\n";
                 foreach (GameObjectLootParsing gameobjectMiningData in m_gameobjectMiningDatas)
                     m_gameobjectMiningBuilder.AppendFieldsValue(m_data.id, // Entry
                                                                 gameobjectMiningData.id, // Item
